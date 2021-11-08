@@ -5,8 +5,8 @@ export default function DataLoop({ todo, checkBox }) {
         checkBox(todo.id)
     }
     return (
-        <div>
-            <label>
+        <div className='flex-column'>
+            <label className='flex-row'>
                 <input type='checkbox' checked={todo.isComplete} onChange={ changeCheckBox } />
                 { todo.name }
             </label>

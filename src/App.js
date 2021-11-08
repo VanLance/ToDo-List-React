@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import TodoList from './TodoList';
 import { v4 as uuidv4 } from 'uuid'
+import './App.css'
 
 function App() {
   const [todos, setTodos] = useState([])
@@ -31,14 +32,16 @@ function App() {
     }
   }
   return (
-    <>
-      <div className="flex-column margin-top"></div>
+    <div className="flex-column margin-top">
       <TodoList todos={todos} checkBox={checkBox}/>
         <input ref={addRef} type='text' />
-        <button onClick={addTodo}>Add Item</button>
-        <button onClick={clearTodos}>Clear All</button>
-        <div>Left to do: {todos.length}</div>
-    </>
+        <div className='flex-row'>
+        <button className='padding-5 margin-5' onClick={addTodo}>Add Item</button>
+        <button className='padding-5 margin-5' onClick={clearTodos}>Clear Chosen</button>
+        </div>
+        <div>How many More? : {todos.length}</div>
+    </div>
+    
   ); 
 }
 
