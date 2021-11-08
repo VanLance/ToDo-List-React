@@ -1,29 +1,43 @@
-import React, {useState, AddRef} from 'react';
-
+import React, {useState, useRef} from 'react';
 import TodoList from './TodoList';
+import { v4 as uuidv4 } from 'uuid'
 
 function App() {
-  const [todos, setTodos] = useState([{name:'Cook myself', id: 0, isComplete: false}])
-  function addTodo(event) {
+  const [todos, setTodos] = useState([])
+  const addRef= useRef()
     
-    const taskName= AddRef.current.value
+  function checkBox(id){
+    const newStuff= [...todos]
+    const todo = newStuff.find(specificItem => specificItem.id ===id)
+    todo.isComplete = !todo.isComplete
+    setTodos(newStuff)
+  }
+  
+  function clearTodos() {
+    const newTodos = todos.filter(todo => !todo.isComplete)
+    setTodos(newTodos)
+  }
+  
+  const addTodo = (event) => {
+    
+    const taskName= addRef.current.value
     if (taskName){
      setTodos(oldTodos => {
-       return[...oldTodos, {id:1, name: taskName, isComplete: false}]
+       return[...oldTodos, {id: uuidv4(), name: taskName, isComplete: false}]
      })
-      AddRef.current.value= null
+      addRef.current.value= null
     } else {
       return null
     }
   }
   return (
     <>
-      
-      <TodoList todos={todos}/>
-      <input ref={AddRef} type='text' />
-      <button onClick={addTodo}>Add Item</button>
-      <button>Clear All</button>
-      <div>Left to do: 0</div>
+      <div className="flex-column margin-top"></div>
+      <TodoList todos={todos} checkBox={checkBox}/>
+        <input ref={addRef} type='text' />
+        <button onClick={addTodo}>Add Item</button>
+        <button onClick={clearTodos}>Clear All</button>
+        <div>Left to do: {todos.length}</div>
     </>
   ); 
 }

@@ -1,11 +1,15 @@
 import React from 'react'
 
-export default function dataLoop({ todo }) {
+export default function DataLoop({ todo, checkBox }) {
+    function changeCheckBox() {
+        checkBox(todo.id)
+    }
     return (
         <div>
-            <input type='checkbox' checked={todo.isComplete} />
-            { todo.name }
-
+            <label>
+                <input type='checkbox' checked={todo.isComplete} onChange={ changeCheckBox } />
+                { todo.name }
+            </label>
         </div>
     )
 }
